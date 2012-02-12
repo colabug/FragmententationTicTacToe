@@ -16,41 +16,27 @@
 
 package com.example.android.tictactoe;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
-import com.example.android.tictactoe.library.GameActivity;
-import com.example.android.tictactoe.library.GameView.State;
-
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView( R.layout.shell );
 
-        findViewById(R.id.start_player).setOnClickListener(
-                new OnClickListener() {
-            public void onClick(View v) {
-                startGame(true);
-            }
-        });
-
-        findViewById(R.id.start_comp).setOnClickListener(
-                new OnClickListener() {
-            public void onClick(View v) {
-                startGame(false);
-            }
-        });
+        showMainFragment();
     }
 
-    private void startGame(boolean startWithHuman) {
-        Intent i = new Intent(this, GameActivity.class);
-        i.putExtra(GameActivity.EXTRA_START_PLAYER,
-                startWithHuman ? State.PLAYER1.getValue() : State.PLAYER2.getValue());
-        startActivity(i);
+    private void showMainFragment()
+    {
+        Fragment fragment = new MainFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack( null );
+        transaction.add( R.id.content, fragment );
+        transaction.commit();
     }
 }
