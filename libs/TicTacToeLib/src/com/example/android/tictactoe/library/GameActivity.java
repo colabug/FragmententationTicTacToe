@@ -30,6 +30,6 @@ public class GameActivity extends FragmentActivity {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
-        setContentView(R.layout.lib_game);
+        setContentView(R.layout.game_shell);
     }
 }
