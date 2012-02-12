@@ -45,6 +45,10 @@ public class GameFragment extends Fragment
     private TextView mInfoView;
     private Button   mButtonNext;
 
+    public GameFragment()
+    {
+    }
+
     /**
      * Called when the activity is first created.
      */
