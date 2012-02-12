@@ -18,11 +18,11 @@ package com.example.android.tictactoe.library;
 
 import java.util.Random;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Handler.Callback;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,7 +32,7 @@ import com.example.android.tictactoe.library.GameView.ICellListener;
 import com.example.android.tictactoe.library.GameView.State;
 
 
-public class GameActivity extends Activity {
+public class GameActivity extends FragmentActivity {
 
     /** Start player. Must be 1 or 2. Default is 1. */
     public static final String EXTRA_START_PLAYER =
