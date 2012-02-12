@@ -17,7 +17,9 @@
 package com.example.android.tictactoe.library;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
 public class GameActivity extends FragmentActivity {
     /**
@@ -31,5 +33,15 @@ public class GameActivity extends FragmentActivity {
         super.onCreate(bundle);
 
         setContentView(R.layout.game_shell);
+        showGameFragment();
+    }
+
+    private void showGameFragment()
+    {
+        Fragment fragment = new GameFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack( null );
+        transaction.add( R.id.game, fragment );
+        transaction.commit();
     }
 }
