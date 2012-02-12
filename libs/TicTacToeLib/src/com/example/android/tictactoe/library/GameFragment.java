@@ -34,15 +34,8 @@ import android.widget.TextView;
 import com.example.android.tictactoe.library.GameView.ICellListener;
 import com.example.android.tictactoe.library.GameView.State;
 
-
 public class GameFragment extends Fragment
 {
-    /**
-     * Start player. Must be 1 or 2. Default is 1.
-     */
-    public static final String EXTRA_START_PLAYER =
-    "com.example.android.tictactoe.library.GameActivity.EXTRA_START_PLAYER";
-
     private static final int  MSG_COMPUTER_TURN = 1;
     private static final long COMPUTER_DELAY_MS = 500;
 
@@ -103,7 +96,7 @@ public class GameFragment extends Fragment
         State player = mGameView.getCurrentPlayer();
         if ( player == State.UNKNOWN )
         {
-            player = State.fromInt( getActivity().getIntent().getIntExtra( EXTRA_START_PLAYER, 1 ) );
+            player = State.fromInt( getActivity().getIntent().getIntExtra( GameActivity.EXTRA_START_PLAYER, 1 ) );
             if ( !checkGameFinished( player ) )
             {
                 selectTurn( player );
