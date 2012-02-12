@@ -32,6 +32,10 @@ public class MainFragment extends Fragment
 {
     private final String game = "com.example.android.tictactoe.library.GameActivity";
 
+    public MainFragment()
+    {
+    }
+
     /**
      * Called when the activity is first created.
      */
