@@ -33,8 +33,12 @@
 
         <!-- This is defined in TicTacToeLib. Right now we need to manually
              copy it here. Eventually it should get merged automatically. -->
-        <activity android:name="com.example.android.tictactoe.library.GameActivity" />
-
-
+        <activity
+            android:name="com.example.android.tictactoe.library.GameActivity">
+            <intent-filter>
+                <action android:name="com.example.android.tictactoe.library.GameActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
