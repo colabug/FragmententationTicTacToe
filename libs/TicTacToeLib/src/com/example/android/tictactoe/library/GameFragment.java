@@ -23,9 +23,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Handler.Callback;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.tictactoe.library.GameView.ICellListener;
@@ -53,9 +56,11 @@ public class GameFragment extends Fragment
      * Called when the activity is first created.
      */
     @Override
-    public void onCreate( Bundle bundle )
+    public View onCreateView( LayoutInflater inflater,
+                              ViewGroup container,
+                              Bundle savedInstanceState )
     {
-        super.onCreate( bundle );
+        super.onCreateView( inflater, container, savedInstanceState );
 
         /*
          * IMPORTANT: all resource IDs from this library will eventually be merged
@@ -73,29 +78,32 @@ public class GameFragment extends Fragment
          * To avoid potential conflicts, it is suggested to add a prefix to the
          * library resource names.
          */
-        setContentView( R.layout.lib_game );
+        LinearLayout layout = (LinearLayout) inflater.inflate( R.layout.lib_game,
+                                                               container,
+                                                               false );
 
-        mGameView = (GameView) findViewById( R.id.game_view );
-        mInfoView = (TextView) findViewById( R.id.info_turn );
-        mButtonNext = (Button) findViewById( R.id.next_turn );
+        mGameView = (GameView) layout.findViewById( R.id.game_view );
+        mInfoView = (TextView) layout.findViewById( R.id.info_turn );
+        mButtonNext = (Button) layout.findViewById( R.id.next_turn );
 
         mGameView.setFocusable( true );
         mGameView.setFocusableInTouchMode( true );
         mGameView.setCellListener( new MyCellListener() );
 
         mButtonNext.setOnClickListener( new MyButtonListener() );
+
+        return layout;
     }
 
     @Override
-    protected void onResume()
+    public void onResume()
     {
         super.onResume();
 
         State player = mGameView.getCurrentPlayer();
         if ( player == State.UNKNOWN )
         {
-            player = State.fromInt( getIntent().getIntExtra( EXTRA_START_PLAYER,
-                                                             1 ) );
+            player = State.fromInt( getActivity().getIntent().getIntExtra( EXTRA_START_PLAYER, 1 ) );
             if ( !checkGameFinished( player ) )
             {
                 selectTurn( player );
@@ -111,7 +119,6 @@ public class GameFragment extends Fragment
             setWinState( mGameView.getWinner() );
         }
     }
-
 
     private State selectTurn( State player )
     {
@@ -144,17 +151,15 @@ public class GameFragment extends Fragment
         }
     }
 
-
     private class MyButtonListener implements OnClickListener
     {
-
         public void onClick( View v )
         {
             State player = mGameView.getCurrentPlayer();
 
             if ( player == State.WIN )
             {
-                GameActivity.this.finish();
+                getActivity().finish();
             }
             else if ( player == State.PLAYER1 )
             {
